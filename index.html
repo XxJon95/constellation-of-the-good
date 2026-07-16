@@ -30,17 +30,17 @@
   .hint::before{content:""; width:26px; height:1px; background:var(--green-soft)}
 
   /* ---- constellation map ---- */
-  .constellation-map{position:relative; width:100%; max-width:1500px; margin:10px auto 0;
-    aspect-ratio:1760/523}
+  .constellation-map{position:relative; width:100%; max-width:none; margin:10px auto 0;
+    aspect-ratio:1760/720}
   .links{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible}
-  .links .conn{stroke:var(--green); stroke-width:1.1; opacity:.34}
+  .links .conn{stroke:var(--green); stroke-width:1.1; opacity:.34; vector-effect:non-scaling-stroke}
   .links .axis{stroke:rgba(200,220,210,.14); stroke-width:1}
   .links .axislabel{fill:rgba(150,170,175,.55); font-size:13px; font-weight:600;
     font-family:var(--font)}
 
   .node{position:absolute; left:calc(100% * var(--x) / 1760); top:calc(100% * var(--y) / 523);
     transform:translate(-50%,-50%); width:var(--sz); height:var(--sz);
-    --sz:clamp(44px,4.5vw,62px);
+    --sz:clamp(54px,5.6vw,84px);
     text-decoration:none; color:var(--muted);
     transition:transform .2s ease}
   .node img{width:100%; height:100%; object-fit:contain; display:block;
@@ -102,47 +102,47 @@
   <span class="hint">Wähle eine Person</span>
 
   <nav class="constellation-map" aria-label="Philosoph*innen der Ausstellung">
-    <svg class="links" viewBox="0 0 1760 523" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <svg class="links" viewBox="0 0 1760 523" preserveAspectRatio="none" aria-hidden="true">
       <!-- Verbindungen (kuratierte Verwandtschaft) -->
       <g fill="none">
-        <line class="conn" x1="250" y1="215" x2="300" y2="295"/>
-        <line class="conn" x1="300" y1="295" x2="465" y2="345"/>
-        <line class="conn" x1="465" y1="345" x2="560" y2="260"/>
-        <line class="conn" x1="560" y1="260" x2="720" y2="250"/>
-        <line class="conn" x1="720" y1="250" x2="860" y2="360"/>
-        <line class="conn" x1="720" y1="250" x2="1010" y2="225"/>
-        <line class="conn" x1="860" y1="360" x2="1010" y2="225"/>
-        <line class="conn" x1="1010" y1="225" x2="1160" y2="220"/>
-        <line class="conn" x1="1160" y1="220" x2="1230" y2="350"/>
-        <line class="conn" x1="1230" y1="350" x2="1450" y2="360"/>
-        <line class="conn" x1="1480" y1="210" x2="1510" y2="285"/>
-        <line class="conn" x1="1510" y1="285" x2="1450" y2="360"/>
+        <line class="conn" x1="250" y1="97" x2="300" y2="281"/>
+        <line class="conn" x1="300" y1="281" x2="465" y2="396"/>
+        <line class="conn" x1="465" y1="396" x2="560" y2="200"/>
+        <line class="conn" x1="560" y1="200" x2="720" y2="177"/>
+        <line class="conn" x1="720" y1="177" x2="860" y2="430"/>
+        <line class="conn" x1="720" y1="177" x2="1010" y2="120"/>
+        <line class="conn" x1="860" y1="430" x2="1010" y2="120"/>
+        <line class="conn" x1="1010" y1="120" x2="1160" y2="108"/>
+        <line class="conn" x1="1160" y1="108" x2="1230" y2="407"/>
+        <line class="conn" x1="1230" y1="407" x2="1450" y2="430"/>
+        <line class="conn" x1="1480" y1="85" x2="1510" y2="258"/>
+        <line class="conn" x1="1510" y1="258" x2="1450" y2="430"/>
       </g>
     </svg>
 
-    <a class="node lbl-right" style="--x:250; --y:215" href="profiles/al-ghazali.html">
+    <a class="node lbl-right" style="--x:250; --y:97" href="profiles/al-ghazali.html">
       <img src="Assets/heads_web/AlGhazali.webp" alt="Kopf von Al-Ghazālī"><span class="name">Al-Ghazālī</span></a>
-    <a class="node lbl-below" style="--x:300; --y:295" href="profiles/buddha.html">
+    <a class="node lbl-below" style="--x:300; --y:281" href="profiles/buddha.html">
       <img src="Assets/heads_web/Buddha.webp" alt="Kopf von Buddha"><span class="name">Buddha</span></a>
-    <a class="node lbl-below" style="--x:465; --y:345" href="profiles/binge.html">
+    <a class="node lbl-below" style="--x:465; --y:396" href="profiles/von-bingen.html">
       <img src="Assets/heads_web/Binge.webp" alt="Kopf von Hildegard von Bingen"><span class="name">Hildegard von Bingen</span></a>
-    <a class="node lbl-above" style="--x:560; --y:260" href="profiles/weil.html">
+    <a class="node lbl-above" style="--x:560; --y:200" href="profiles/weil.html">
       <img src="Assets/heads_web/Weil.webp" alt="Kopf von Simone Weil"><span class="name">Simone Weil</span></a>
-    <a class="node lbl-above" style="--x:720; --y:250" href="profiles/murdoch.html">
+    <a class="node lbl-above" style="--x:720; --y:177" href="profiles/murdoch.html">
       <img src="Assets/heads_web/Murdoch.webp" alt="Kopf von Iris Murdoch"><span class="name">Iris Murdoch</span></a>
-    <a class="node lbl-below" style="--x:860; --y:360" href="profiles/oluwole.html">
+    <a class="node lbl-below" style="--x:860; --y:430" href="profiles/oluwole.html">
       <img src="Assets/heads_web/Oluwole.webp" alt="Kopf von Sophie Olúwọlé"><span class="name">Sophie Olúwọlé</span></a>
-    <a class="node lbl-above" style="--x:1010; --y:225" href="profiles/aristoteles.html">
+    <a class="node lbl-above" style="--x:1010; --y:120" href="profiles/aristoteles.html">
       <img src="Assets/heads_web/Aristoteles.webp" alt="Kopf von Aristoteles"><span class="name">Aristoteles</span></a>
-    <a class="node lbl-above" style="--x:1160; --y:220" href="profiles/nussbaum.html">
+    <a class="node lbl-above" style="--x:1160; --y:108" href="profiles/nussbaum.html">
       <img src="Assets/heads_web/Nussbaum.webp" alt="Kopf von Martha Nussbaum"><span class="name">Martha Nussbaum</span></a>
-    <a class="node lbl-below" style="--x:1230; --y:350" href="profiles/konfuzius.html">
+    <a class="node lbl-below" style="--x:1230; --y:407" href="profiles/konfuzius.html">
       <img src="Assets/heads_web/Konfuzius.webp" alt="Kopf von Konfuzius"><span class="name">Konfuzius</span></a>
-    <a class="node lbl-left" style="--x:1480; --y:210" href="profiles/mills.html">
+    <a class="node lbl-left" style="--x:1480; --y:85" href="profiles/mills.html">
       <img src="Assets/heads_web/Mills.webp" alt="Kopf von Harriet Taylor und John Stuart Mill"><span class="name">Taylor &amp; Mill</span></a>
-    <a class="node lbl-left" style="--x:1510; --y:285" href="profiles/de-beauvoir.html">
+    <a class="node lbl-left" style="--x:1510; --y:258" href="profiles/de-beauvoir.html">
       <img src="Assets/heads_web/DeBeuvoir.webp" alt="Kopf von Simone de Beauvoir"><span class="name">Simone de Beauvoir</span></a>
-    <a class="node lbl-below" style="--x:1450; --y:360" href="profiles/arendt.html">
+    <a class="node lbl-below" style="--x:1450; --y:430" href="profiles/arendt.html">
       <img src="Assets/heads_web/Arendt.webp" alt="Kopf von Hannah Arendt"><span class="name">Hannah Arendt</span></a>
   </nav>
 </main>
