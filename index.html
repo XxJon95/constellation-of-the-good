@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Constellation of the Good</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .home{position:relative; z-index:1; max-width:1560px; margin:0 auto; padding:0 clamp(20px,5vw,52px) 40px}
+
+  .hero{display:flex; justify-content:space-between; align-items:flex-start; gap:24px;
+    padding:clamp(22px,4vh,48px) 0 clamp(10px,2vh,20px)}
+  .hero h1{font-weight:800; line-height:.96; letter-spacing:-.02em;
+    font-size:clamp(38px,6.6vw,76px); color:var(--ink); text-shadow:0 0 46px rgba(61,255,160,.18), 0 2px 30px rgba(0,0,0,.5)}
+  .hero h1 span{background:linear-gradient(180deg,#eafff4,#9bf7c0 55%,#37d08a);
+    -webkit-background-clip:text; background-clip:text; color:transparent}
+  .hero .tagline{flex:0 0 auto; text-align:right; font-weight:500; color:#eaf3ef;
+    font-size:clamp(17px,2.6vw,26px); line-height:1.5; padding-top:clamp(6px,1vh,18px);
+    text-shadow:0 2px 24px rgba(0,0,0,.55)}
+  .hero .tagline em{display:block; font-style:normal}
+  .hero .tagline em:nth-child(2){padding-left:.6em}
+  .hero .tagline em:nth-child(3){padding-left:1.2em; font-weight:700; color:var(--ink)}
+  .hero .tagline em:nth-child(4){padding-left:1.8em}
+
+  .intro{max-width:600px; margin:0 0 clamp(14px,3vh,28px); color:#e2eee9;
+    font-size:clamp(15px,2vw,17px); font-weight:400; text-shadow:0 1px 18px rgba(0,0,0,.5)}
+
+  .hint{display:flex; align-items:center; gap:.7em; margin-bottom:6px;
+    font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--green); font-weight:700}
+  .hint::before{content:""; width:26px; height:1px; background:var(--green-soft)}
+
+  /* ---- constellation map ---- */
+  .constellation-map{position:relative; width:100%; max-width:1500px; margin:10px auto 0;
+    aspect-ratio:1760/523}
+  .links{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible}
+  .links .conn{stroke:var(--green); stroke-width:1.1; opacity:.34}
+  .links .axis{stroke:rgba(200,220,210,.14); stroke-width:1}
+  .links .axislabel{fill:rgba(150,170,175,.55); font-size:13px; font-weight:600;
+    font-family:var(--font)}
+
+  .node{position:absolute; left:calc(100% * var(--x) / 1760); top:calc(100% * var(--y) / 523);
+    transform:translate(-50%,-50%); width:var(--sz); height:var(--sz);
+    --sz:clamp(44px,4.5vw,62px);
+    text-decoration:none; color:var(--muted);
+    transition:transform .2s ease}
+  .node img{width:100%; height:100%; object-fit:contain; display:block;
+    filter:drop-shadow(0 0 12px var(--green-soft)) drop-shadow(0 0 3px rgba(0,0,0,.75));
+    transition:filter .2s ease}
+  .node .name{position:absolute; left:50%; top:calc(100% + 5px); transform:translateX(-50%);
+    white-space:nowrap; font-size:clamp(11px,1.15vw,13.5px); font-weight:700; letter-spacing:-.005em;
+    text-shadow:0 1px 10px rgba(0,0,0,.7); transition:color .2s ease}
+  .node.lbl-above .name{top:auto; bottom:calc(100% + 5px)}
+  .node.lbl-right .name{left:calc(100% + 9px); top:50%; bottom:auto; transform:translateY(-50%)}
+  .node.lbl-left  .name{left:auto; right:calc(100% + 9px); top:50%; bottom:auto; transform:translateY(-50%); text-align:right}
+
+  .node:hover, .node:focus-visible{z-index:5; outline:none; transform:translate(-50%,-50%) scale(1.08)}
+  .node:hover img, .node:focus-visible img{
+    filter:drop-shadow(0 0 22px var(--pink-soft)) drop-shadow(0 0 8px var(--green-soft)) drop-shadow(0 0 3px rgba(0,0,0,.75))}
+  .node:hover .name, .node:focus-visible .name{color:var(--ink)}
+
+  /* ---- mobile: reflow map into a simple grid ---- */
+  @media (max-width:820px){
+    .constellation-map{aspect-ratio:auto; max-width:560px;
+      display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px 8px; padding:8px 0}
+    .links{display:none}
+    .node{position:static; transform:none; width:auto; height:auto;
+      display:flex; flex-direction:column; align-items:center; gap:9px; padding:4px}
+    .node img{width:clamp(66px,21vw,92px); height:auto; aspect-ratio:1}
+    .node .name, .node.lbl-above .name, .node.lbl-left .name, .node.lbl-right .name{
+      position:static; transform:none; left:auto; right:auto; top:auto; bottom:auto;
+      text-align:center; white-space:normal}
+    .node:hover, .node:focus-visible{transform:none}
+  }
+  @media (max-width:520px){
+    .hero{flex-direction:column; gap:26px}
+    .hero .tagline{text-align:left; padding-left:0}
+    .hero .tagline em{padding-left:0 !important}
+    .constellation-map{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+
+<header class="top">
+  <span class="mark">CONSTELLATION <b>OF THE GOOD</b></span>
+</header>
+
+<main class="home">
+  <section class="hero">
+    <h1>Constellation<br>of<br>the<br><span>Good</span></h1>
+    <p class="tagline">
+      <em>Where</em>
+      <em>Does</em>
+      <em>Philosophy</em>
+      <em>Place You?</em>
+    </p>
+  </section>
+
+  <p class="intro">Zwölf Philosoph*innen, angeordnet nach ihrer Antwort auf eine Frage, die uns alle betrifft: Was macht einen guten Menschen aus? Wähle einen Kopf und tritt ein in ihre Gedankenwelt.</p>
+
+  <span class="hint">Wähle eine Person</span>
+
+  <nav class="constellation-map" aria-label="Philosoph*innen der Ausstellung">
+    <svg class="links" viewBox="0 0 1760 523" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <!-- Verbindungen (kuratierte Verwandtschaft) -->
+      <g fill="none">
+        <line class="conn" x1="250" y1="215" x2="300" y2="295"/>
+        <line class="conn" x1="300" y1="295" x2="465" y2="345"/>
+        <line class="conn" x1="465" y1="345" x2="560" y2="260"/>
+        <line class="conn" x1="560" y1="260" x2="720" y2="250"/>
+        <line class="conn" x1="720" y1="250" x2="860" y2="360"/>
+        <line class="conn" x1="720" y1="250" x2="1010" y2="225"/>
+        <line class="conn" x1="860" y1="360" x2="1010" y2="225"/>
+        <line class="conn" x1="1010" y1="225" x2="1160" y2="220"/>
+        <line class="conn" x1="1160" y1="220" x2="1230" y2="350"/>
+        <line class="conn" x1="1230" y1="350" x2="1450" y2="360"/>
+        <line class="conn" x1="1480" y1="210" x2="1510" y2="285"/>
+        <line class="conn" x1="1510" y1="285" x2="1450" y2="360"/>
+      </g>
+    </svg>
+
+    <a class="node lbl-right" style="--x:250; --y:215" href="profiles/al-ghazali.html">
+      <img src="Assets/heads_web/AlGhazali.webp" alt="Kopf von Al-Ghazālī"><span class="name">Al-Ghazālī</span></a>
+    <a class="node lbl-below" style="--x:300; --y:295" href="profiles/buddha.html">
+      <img src="Assets/heads_web/Buddha.webp" alt="Kopf von Buddha"><span class="name">Buddha</span></a>
+    <a class="node lbl-below" style="--x:465; --y:345" href="profiles/binge.html">
+      <img src="Assets/heads_web/Binge.webp" alt="Kopf von Hildegard von Bingen"><span class="name">Hildegard von Bingen</span></a>
+    <a class="node lbl-above" style="--x:560; --y:260" href="profiles/weil.html">
+      <img src="Assets/heads_web/Weil.webp" alt="Kopf von Simone Weil"><span class="name">Simone Weil</span></a>
+    <a class="node lbl-above" style="--x:720; --y:250" href="profiles/murdoch.html">
+      <img src="Assets/heads_web/Murdoch.webp" alt="Kopf von Iris Murdoch"><span class="name">Iris Murdoch</span></a>
+    <a class="node lbl-below" style="--x:860; --y:360" href="profiles/oluwole.html">
+      <img src="Assets/heads_web/Oluwole.webp" alt="Kopf von Sophie Olúwọlé"><span class="name">Sophie Olúwọlé</span></a>
+    <a class="node lbl-above" style="--x:1010; --y:225" href="profiles/aristoteles.html">
+      <img src="Assets/heads_web/Aristoteles.webp" alt="Kopf von Aristoteles"><span class="name">Aristoteles</span></a>
+    <a class="node lbl-above" style="--x:1160; --y:220" href="profiles/nussbaum.html">
+      <img src="Assets/heads_web/Nussbaum.webp" alt="Kopf von Martha Nussbaum"><span class="name">Martha Nussbaum</span></a>
+    <a class="node lbl-below" style="--x:1230; --y:350" href="profiles/konfuzius.html">
+      <img src="Assets/heads_web/Konfuzius.webp" alt="Kopf von Konfuzius"><span class="name">Konfuzius</span></a>
+    <a class="node lbl-left" style="--x:1480; --y:210" href="profiles/mills.html">
+      <img src="Assets/heads_web/Mills.webp" alt="Kopf von Harriet Taylor und John Stuart Mill"><span class="name">Taylor &amp; Mill</span></a>
+    <a class="node lbl-left" style="--x:1510; --y:285" href="profiles/de-beauvoir.html">
+      <img src="Assets/heads_web/DeBeuvoir.webp" alt="Kopf von Simone de Beauvoir"><span class="name">Simone de Beauvoir</span></a>
+    <a class="node lbl-below" style="--x:1450; --y:360" href="profiles/arendt.html">
+      <img src="Assets/heads_web/Arendt.webp" alt="Kopf von Hannah Arendt"><span class="name">Hannah Arendt</span></a>
+  </nav>
+</main>
+
+<footer class="foot">
+  <p>Eine immersive Kunstausstellung von <b>Lucas Denhof, Joshua Jackson, Jonas Riedinger, Yuanzhen Sun</b></p>
+</footer>
+</body>
+</html>
